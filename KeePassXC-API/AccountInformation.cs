@@ -15,4 +15,10 @@ namespace KeePassXC_API
         [JsonPropertyName("password")]
         public string Password { get; set; }
     }
+
+    public class TOTPEntry
+    {
+        [JsonPropertyName("totp")]
+        public string Totp { get; set; }
+    }
 }

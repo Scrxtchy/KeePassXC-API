@@ -39,6 +39,9 @@ namespace Example
                     case "-generate":
                         Console.WriteLine(await api.GeneratePassword());
                         break;
+                    case "-totp":
+                        Console.Write(await api.GetOTP(args[1]));
+                        break;
                 }
             }
             catch (Exception ex)

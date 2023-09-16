@@ -195,6 +195,35 @@ namespace KeePassXC_API
 			}
 		}
 
+
+        private class GetTOTPMessage : Message
+        {
+            [JsonPropertyName("uuid")]
+            public string uuid { get; set; }
+
+            public GetTOTPMessage()
+            {
+                Action = Actions.GetTOTP;
+            }
+        }
+        private class GetTOTPResponse : ResponseMessage
+        {
+            [JsonPropertyName("totp")]
+            public string totp { get; set; }
+        }
+
+        public async Task<string> GetOTP(string uuid)
+		{
+			await AssociateIfNeeded();
+			GetTOTPMessage msg = new GetTOTPMessage() { uuid = uuid };
+			using (await communicationLock.LockAsync())
+			{
+				await communicatior.SendEncrypted(msg);
+				GetTOTPResponse resp = await communicatior.ReadEncrypted<GetTOTPResponse>(Actions.GetTOTP);
+				return resp.totp;
+			}
+		}
+
 		class GeneratePasswordResponse : ResponseMessage
 		{
 			[JsonPropertyName("entries")]

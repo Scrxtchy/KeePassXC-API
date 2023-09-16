@@ -1,0 +1,3 @@
+[submodule "NativeMessaging.git"]
+	path = NativeMessaging
+	url = https://github.com/Scrxtchy/NativeMessaging.git
